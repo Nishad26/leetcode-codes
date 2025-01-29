@@ -1,0 +1,2187 @@
+
+hERE DIFFERENT STRING FUCTIONS ARE USED ARE IN A GOOD WAY
+matches
+split
+replaceAll
+
+public String mostCommonWord(String paragraph, String[] banned) {
+        String arr[] = paragraph.split("[,;.! ]+");
+        HashMap<String, Integer> map = new HashMap<String, Integer>();
+        ArrayList<String> arrlist = new ArrayList(Arrays.asList(banned));
+
+        System.out.println(Arrays.toString(arr));
+        for (String str : arr) {
+            if (str.matches(".*[!?',;.].*")) {
+                str = str.replaceAll("[!?',;.]", "");
+            }
+            str = str.toLowerCase();
+            if (!arrlist.contains(str)) {
+
+                map.put(str, map.getOrDefault(str, 0) + 1);
+            }
+        }
+        System.out.println(map);
+        int max = -1;
+        String maxOcc = "";
+
+        for (String key : map.keySet()) {
+            if (map.get(key) >= max) {
+                max = map.get(key);
+                maxOcc = key;
+            }
+        }
+        return maxOcc;
+    }
+
+Sum of n natural numbers is n(n+1)/2
+supoose find sum of first 3 natural numbers :-  3(3+1)/2 =6 (1,2,3)
+-------------------
+String builder
+
+public static void main(String[] args) {
+		StringBuilder build = new StringBuilder();
+        build.append("nishad");
+        
+        build.reverse();
+        System.out.println("reverse "+ build);
+        
+        build.delete(0, 3);
+        System.out.println("delete "+build);
+        
+        build.deleteCharAt(1);
+        System.out.println(build);
+        
+        build.insert(1, "shrytiuka");
+        System.out.println(build);
+		
+		build.setCharAt(0,'u');
+		 System.out.println(build);
+        
+		
+	}
+
+
+
+------------------
+11. Container With Most Watere
+public int maxArea(int[] height) {
+        int left=0;
+        int right=height.length-1;
+        int maxArea=0;
+        while(left < right){
+            int area= Integer.min(height[left], height[right])*(right-left);
+            if(area > maxArea){
+                maxArea=area;
+            }
+            if(height[left] < height[right]){
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return maxArea;
+    }
+-----------------
+static inner class in java:-
+public class OuterClass {
+    private static int outerStaticField = 10;
+    private int outerInstanceField = 20;
+
+    // Static inner class
+    static class StaticInnerClass {
+        private int innerInstanceField = 30;
+
+        // Instance method of static inner class
+        public void display() {
+            // Accessing static fields of outer class
+            System.out.println("Outer static field: " + outerStaticField);
+            
+            // This will result in a compilation error because static members cannot access instance members of the outer class directly
+            // System.out.println("Outer instance field: " + outerInstanceField);
+
+            // Accessing instance field of the inner class
+            System.out.println("Inner instance field: " + innerInstanceField);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Creating an instance of the static inner class
+        StaticInnerClass innerObject = new StaticInnerClass();
+        
+        // Invoking the instance method of the static inner class
+        innerObject.display();
+    }
+}
+-----------
+inner class in java:-
+public class OuterClass {
+    private int outerField;
+
+    // Non-static inner class
+    class InnerClass {
+        private int innerField;
+
+        public InnerClass(int innerField) {
+            this.innerField = innerField;
+        }
+
+        public void displayInnerField() {
+            System.out.println("InnerField: " + innerField);
+        }
+
+        public void displayOuterField() {
+            System.out.println("OuterField (accessed from InnerClass): " + outerField);
+        }
+    }
+
+    public OuterClass(int outerField) {
+        this.outerField = outerField;
+    }
+
+    public static void main(String[] args) {
+        OuterClass outerObject = new OuterClass(10);
+        
+        // Creating an instance of the inner class
+        OuterClass.InnerClass innerObject = outerObject.new InnerClass(20);
+        
+        // Accessing fields and methods of the inner class
+        innerObject.displayInnerField(); // Output: InnerField: 20
+        innerObject.displayOuterField(); // Output: OuterField (accessed from InnerClass): 10
+    }
+}
+------------
+interface MyInterface {
+    void interfaceMethod();
+
+    class NestedClass {
+        void nestedMethod() {
+            System.out.println("Inside nested class method");
+        }
+    }
+}
+
+public class Main implements MyInterface.InnerInterface {
+    public static void main(String[] args) {
+        MyInterface.NestedClass nestedObj = new MyInterface.NestedClass();
+        nestedObj.nestedMethod();
+
+        Main mainObj = new Main();
+        mainObj.innerInterfaceMethod();
+    }
+}
+-----------
+string.intern() method in java
+
+Here's a breakdown of how it works:
+
+If a string is already present in the pool (the pool of unique string literals maintained by the JVM), the intern() method returns a reference to that string.
+If the string is not already present in the pool, a new entry containing the string is added to the pool, and a reference to that string is returned.
+This method is useful when you have many strings with the same contents and you want to conserve memory by ensuring that only one copy of each distinct string is held in memory.
+
+Here's a simple example to illustrate its usage:
+
+String s1 = new String("hello");
+String s2 = "hello";
+String s3 = s1.intern();
+
+// This will return true, as s2 and s3 reference the same string in the pool
+System.out.println(s2 == s3);
+----------------
+labelled break in java
+outerLoop:
+for (int i = 0; i < 3; i++) {
+    for (int j = 0; j < 3; j++) {
+        if (i == 1 && j == 1) {
+            System.out.println("Breaking outerLoop");
+            break outerLoop; // This breaks out of the outer loop
+        }
+        System.out.println("i: " + i + ", j: " + j);
+    }
+}
+=---------------------
+ENUM CAN BASICALLY HAVE EVERYTHING
+public enum Planet {
+    MERCURY (3.303e+23, 2.4397e6),
+    VENUS   (4.869e+24, 6.0518e6),
+    EARTH   (5.976e+24, 6.37814e6),
+    MARS    (6.421e+23, 3.3972e6),
+    JUPITER (1.9e+27,   7.1492e7),
+    SATURN  (5.688e+26, 6.0268e7),
+    URANUS  (8.686e+25, 2.5559e7),
+    NEPTUNE (1.024e+26, 2.4746e7);
+
+    private final double mass;   // in kilograms
+    private final double radius; // in meters
+    Planet(double mass, double radius) {
+        this.mass = mass;
+        this.radius = radius;
+    }
+    private double mass() { return mass; }
+    private double radius() { return radius; }
+
+    // universal gravitational constant  (m3 kg-1 s-2)
+    public static final double G = 6.67300E-11;
+
+    double surfaceGravity() {
+        return G * mass / (radius * radius);
+    }
+    double surfaceWeight(double otherMass) {
+        return otherMass * surfaceGravity();
+    }
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.err.println("Usage: java Planet <earth_weight>");
+            System.exit(-1);
+        }
+        double earthWeight = Double.parseDouble(args[0]);
+        double mass = earthWeight/EARTH.surfaceGravity();
+        for (Planet p : Planet.values())
+           System.out.printf("Your weight on %s is %f%n",
+                             p, p.surfaceWeight(mass));
+    }
+}
+--------
+Arrays
+Arrays.aslist()
+
+Arrays.binarySearch(array, what_to_find)
+Arrays.binarySearch(array, fromIndex, toIndex, key)
+
+Arrays.compare(array 1, array 2) -->Compares arrays lexigografically (returns -1, 1)
+
+Arrays.copyOf(originalArray, newLength) ---> Copies the specified array, truncating or padding with the default value (if necessary) so the copy has the specified length. //does not create deeep copy
+
+Arrays.equals(intArr, intArr1)) --> returns true or false
+
+Arrays.fill(originalArray, fillValue) --> filles the array specified with values 
+
+Arrays.sort(intArr, 1, 3); 
+Arrays.sort(arr, int fromIndex, int toIndex, Comparator c) 
+
+Arrays.toString()
+
+Arrays.stream(new int[]{3,4,5,6,7,8}).forEach(a->{
+		    System.out.println(a);
+});
+
+int sum = Arrays.stream(nums).sum();
+
+Arrays.fill(finalArr, 1, digits.length,0);//returns nothing
+
+Subarray using stream
+Stream<String> stream = Arrays.stream(arr, 3, 6); //start is inclusive end is exclusive
+int sum = Arrays.stream(array, 1, 4).sum();
+
+--------------------------------------------------------------------
+Remember in lambda :-
+List<String> strings = Arrays.asList("foo", "bar", "baz");
+String prefix = "Prefix: ";
+strings.forEach(str -> {
+    // You can use 'prefix' here
+    System.out.println(prefix + str);
+});
+In this example, prefix is effectively final because its value is not changed after initialization. So, it can be used within the lambda expression.
+
+List<String> strings = Arrays.asList("foo", "bar", "baz");
+String prefix = "Prefix: ";
+strings.forEach(str -> {
+    // Compilation error: Local variable prefix defined in an enclosing scope must be final or effectively final
+    prefix += "Updated "; // Error: Cannot assign a value to final variable 'prefix'
+    System.out.println(prefix + str);
+});
+------------------------------------------------------------------------------
+
+Util package has
+	(Functional Interface)Comparator : It has method compare(Object1 , Object2)
+	Comparator<String> stringComp = (String a, String b) -> {
+	        return a.compareToIgnoreCase(b);
+	};
+java.lang
+	Comparable interface : x.compareTo(y)
+	
+	
+System.out.println(Integer.valueOf(800).compareTo(Integer.valueOf(900)));
+System.out.println(Integer.sum(90,90));
+System.out.println(Integer.valueOf(90).toString());
+System.out.println(Integer.compare(Integer.valueOf(89), Integer.valueOf(90)));
+System.out.println(Integer.valueOf(90).intValue() + 180);
+
+
+TreeSet
+		TreeSet<String> stringSet = new TreeSet<String>((String a1, String b1)->{
+		    int com = a1.compareToIgnoreCase(b1);
+		    if(com < 0){
+		        return 1;
+		    } 
+		    else if (com > 0){
+		        return -1;
+		    } else {
+		        return 0;
+		    }
+		});
+		
+		stringSet.add("nisad");
+		stringSet.add("aisad");
+		stringSet.add("sisad");
+		stringSet.add("bisad");
+		stringSet.add("zisad");
+        stringSet.add("xisad");
+
+		
+		System.out.println(stringSet);
+		System.out.println(stringSet.remove("nisad"));
+		System.out.println(stringSet.contains("nisad"));
+		System.out.println(stringSet.isEmpty());
+		System.out.println(stringSet.size());
+		stringSet.retainAll(new ArrayList<String>(Arrays.asList(new String[]{"aisad","sisad","bisad"})));
+		System.out.println(stringSet);
+
+ArrayList
+
+String arr[] = new String[] {"nishad", "sishad", "zishad", "xishad", "bishad", "sishad"};
+		ArrayList<String> listArr = new ArrayList<String>(Arrays.asList(arr));
+		System.out.println(listArr);
+		System.out.println(listArr.indexOf("sishad"));
+		System.out.println(listArr.lastIndexOf("sishad"));
+		listArr.add("safa");
+		listArr.add(1, "shilpa");
+		System.out.println(listArr.contains("shilpa"));
+		System.out.println(listArr.size());
+		System.out.println(listArr.isEmpty());
+		System.out.println(listArr.get(1));
+		System.out.println(listArr.set(1,"pokemon"));
+		System.out.println(listArr);
+		System.out.println(listArr.remove("pokemon"));
+		System.out.println(listArr.remove(0));
+		System.out.println(listArr);
+		
+		
+USING STREAM TO CREATE A MAP , WITH KEY AS STRING AND VALUE AS A LIST 
+
+
+public Map<String, List<Student>> getMap(List<Student> students) {
+        ArrayList<Student> lessthan3 =new ArrayList<Student>();
+        ArrayList<Student> greterthan3 =new ArrayList<Student>();
+        return students.stream()
+            .collect(Collectors.toMap(
+                (keyStu)->{
+                    if(keyStu.rollNo <=3){
+                        return "less than three";
+                    } else {
+                        return "more than three";
+                    }
+                },
+                (valueStu) -> {
+                    System.out.println("value stu" + valueStu);
+                    if(valueStu.rollNo <=3){
+                        lessthan3.add(valueStu);
+                        return lessthan3;
+                    } else {
+                        greterthan3.add(valueStu);
+                        return greterthan3;
+                    }
+                },
+                (exsisting, replacement) ->{
+                    System.out.println("----------------------");
+                    System.out.println(exsisting);
+                    System.out.println(replacement);
+                     System.out.println("----------------------");
+                   return exsisting;
+                }
+                
+                
+                ));
+    }
+Another good approach
+
+public Map<String, List<Student>> getMap(List<Student> students) {
+        return students.stream().collect(Collectors.toMap(
+            student -> {
+                if (student.getRollNo() <= 3) {
+                    return "less than or equal to 3";
+                } else {
+                    return "greater than 3";
+                }
+            },
+            student -> {
+                List<Student> list = new ArrayList<>();
+                list.add(student);
+                return list;
+            },
+            (existingList, newList) -> {
+                existingList.addAll(newList);
+                return existingList;
+            }
+        ));
+    }
+Wrapper classes:-
+System.out.println(Integer.valueOf(8).equals(Integer.valueOf(8)));
+ System.out.println(Integer.max(8,9));
+  System.out.println(Integer.min(8,9));
+  System.out.println(Integer.valueOf(8).compareTo(Integer.valueOf(8)));
+  System.out.println(Integer.compare(7,7));
+  System.out.println(Integer.valueOf(6)+6); -- autoboxing unboxing example
+   System.out.println(Integer.valueOf(6).toString() + 6);
+   
+   
+Overriding methods present in Object class :- 
+Java, toString(), equals(), and hashCode() are methods defined in the Object class, 
+
+class Student {
+    String name;
+    int rollNo;
+    String favSub;
+    
+    
+    public Student(String name, int rollNo, String favSub){
+        this.name = name;
+        this.rollNo= rollNo;
+        this.favSub = favSub;
+    }
+    
+    public String toString(){
+        return "Name : "+ name + " RollNo : "+rollNo+ " FavSub : "+favSub;
+    }
+    
+    public boolean equals(Object student){
+        System.out.println(student instanceof Student);// gives true
+        System.out.println(student.getClass().getName());
+        if(student==null) return false;
+        if(!(student instanceof Student)) return false;
+        if(this == student) return true;
+        Student obj1= (Student) student;
+        return this.name.equalsIgnoreCase(obj1.name) && this.rollNo == obj1.rollNo && this.favSub.equalsIgnoreCase(obj1.favSub);
+    }
+    public int hashCode() {
+        return Objects.hash(name, rollNo, favSub);
+    }
+    
+}
+if (value.getClass() == Integer.class) {
+    System.out.println("This is an Integer");
+} 
+getClass() example
+if (o == null || this.getClass() != o.getClass()) return false;
+
+
+HashSet TreeSet LinkedHashSet (Hence it is important that whenever you are creating a new class implement compareTo, equals, hashcode, toString)
+
+TreeSet uses compare() and compareTo() methods to compare the objects. TreeSet does not permit null value. If you insert null value into TreeSet, it will throw NullPointerException
+LinkedHashSet, HashSet uses equals() and hashCode() methods to compare it’s objects, both of them allows only one null value.
+
+overloading
+method signare consist :- Method Name, Number Of Arguments, Types Of Arguments and Order Of Arguments
+Overriding :-
+class A1 {
+    public void sum(int a , int b){
+     System.out.println("In the method of sum in A1");
+        B1 b1= new B1();
+        b1.sum(a,b);
+
+        
+        B2 b2= new B2();
+        b2.sum(a,b);
+
+        //here also subclass sum gets called
+        B1 b3= new B2();
+        b3.sum(a,b);
+    }
+}
+class B1{
+    public void sum(int a , int b){
+        System.out.println("In the method of sum in B1");
+    System.out.println(a+b);
+    }
+}
+class B2 extends B1 {
+
+    @Override
+    public void sum(int a , int b){
+        System.out.println("In the method of sum in B2");
+        System.out.println(a+b);
+    }
+}
+--------------------------------
+class A
+{
+ 
+}
+ 
+class B extends A
+{
+ 
+}
+ 
+class C extends B
+{
+ 
+}
+ 
+public class MainClass
+{
+    static void overloadedMethod(A a)
+    {
+        System.out.println("ONE");
+    }
+ 
+    static void overloadedMethod(B b)
+    {
+        System.out.println("TWO");
+    }
+ 
+    static void overloadedMethod(Object obj)
+    {
+        System.out.println("THREE");
+    }
+ 
+    public static void main(String[] args)
+    {
+        C c = new C();
+ 
+        overloadedMethod(c);
+    }
+}
+output :- TWO
+C can be treated as both B and A due to inheritance, but the method with the most specific type matching the reference type C is overloadedMethod(B b), because C is a B and B is the closest superclass to C
+-----------
+class X
+{
+    void calculate(int a, int b)
+    {
+        System.out.println("Class X");
+    }
+}
+ 
+class Y extends X
+{
+    @Override
+    void calculate(int a, int b)
+    {
+        System.out.println("Class Y");
+    }
+}
+ 
+class Z extends Y
+{
+    @Override
+    void calculate(int a, int b)
+    {
+        System.out.println("Class Z");
+    }
+}
+main()
+{
+		X x = new Y();
+ 
+        x.calculate(10, 20); //output :- class y 
+ 
+        Y y = (Y) x;
+ 
+        y.calculate(50, 100);// output :- class y
+}
+main(){
+		X x = new Z();
+ 
+        x.calculate(10, 20); // class z
+ 
+        Y y = (Y) x;
+ 
+        y.calculate(50, 100);//class z
+        
+        Y y1 = (Z) x;
+ 
+        y1.calculate(50, 100);//class z
+}
+
+-------------------------------------------------------------
+Calculate total number of paths required to reach the last block from the fiirst in a grid
+
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		
+		int arr[][]= {{0,0,1}, {0,0,0}, {0,0,0}};
+		
+		System.out.println(numberOfPaths(arr,0,0,0));
+	}
+	public static int numberOfPaths(int arr[][], int i, int j, int countOfPaths){
+	    return numberOfPaths(arr, i, j,countOfPaths, new HashMap<List<Integer>, Integer>()
+	    );
+	}
+	public static int numberOfPaths(
+	    int arr[][], int i, int j, int countOfPaths, HashMap<List<Integer>, Integer> map
+	 )
+	{
+	    if(i >arr.length-1 || j > arr[0].length-1 || arr[i][j]==1 ){
+	        return 0;
+	    }
+	    if(i==arr.length-1 && j==arr[0].length-1){
+	        
+	        return countOfPaths+=1;
+	    }
+	    int countRight=0;
+	    int countDown=0;
+        
+        List<Integer> list = List.of(i,j);
+        
+        if(map.containsKey(list)){
+            return map.get(list);
+        }
+        
+	    countRight=numberOfPaths(arr, i, j+1, countOfPaths);
+	    if(countRight >0 ){
+            countDown=numberOfPaths(arr, i+1, j, countRight);
+	    } else {
+	        countDown=numberOfPaths(arr, i+1, j, countOfPaths);
+	    }
+	        
+	    
+	    countOfPaths= countRight>= countDown ? countRight : countDown;
+	    List<Integer> list1 = List.of(i,j);
+	    
+	    map.put(list1, countOfPaths);
+	    
+	    return countOfPaths;
+	    
+	}
+	
+}
+
+
+
+Calculate the minimum number pf coins required to create the sum:-
+import java.util.*;
+
+public class Main
+{
+    static HashMap<Integer, Integer> map= new HashMap<Integer,Integer>();
+    
+	public static void main(String[] args) {
+	    System.out.println(numberOfCoins(4, new int[]{3,2,1})); 
+	}
+	
+	public static int numberOfCoins(int amount, int sumarr[]) {
+        if(amount ==0){
+            return 0;
+        }
+        if(amount < 0){
+            return -1;
+        }
+        
+        List<Integer> minCoins= new ArrayList<Integer>(sumarr.length);
+        for(int i =0 ; i< sumarr.length ; i++){
+            
+            int remAmount = amount- sumarr[i];
+            
+            int numCoins = numberOfCoins(remAmount, sumarr); 
+          
+            if(numCoins>=0){
+                minCoins.add(numCoins+1);
+            } else {
+                minCoins.add(Integer.MAX_VALUE);
+            }
+        }
+        return Collections.min(minCoins);
+        
+        
+    }
+}
+-------------
+import java.util.*;
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		System.out.println(fib(8));
+		
+		
+	}
+	public static int fib(int index){
+	    return fib(index, new HashMap<Integer,Integer>());
+	}
+	public static int fib(int index, HashMap<Integer, Integer> memo){
+
+	    if(index==0){
+	        return 0;
+	    }
+	    if(index==1){
+	        return 1;
+	    }
+	    if(memo.containsKey(index)){
+	        return memo.get(index);
+	    }
+	    int sum= fib(index-1)+fib(index-2);
+	    memo.put(index, sum);
+	    return sum;
+	    
+	}
+}
+
+---------------------
+given a target lets say 5 and an array [1,2,3]
+retyrn true or false if we can sum some numbers in the array to get the target
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println(canSum(5, new int[]{80,2,80,2,90,1}));
+	}
+	public static boolean canSum(int target, int arr[]){
+	    ArrayList<Integer> numArr= new ArrayList<Integer>();
+	    for(int elemet: arr){
+	        numArr.add(elemet);
+	    }
+	    int i=0;
+	    for(int ele: arr){
+	        numArr.remove(i);
+	        if(canSum(target,ele,new ArrayList<Integer>(numArr))){
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	public static Boolean canSum(int target, int element,ArrayList<Integer> numArr) {
+        int remainig= target - element;
+        if(numArr.contains(remainig)){
+            return true;
+        }
+        while(!numArr.isEmpty()){
+                int firstEle = numArr.get(0);
+                ArrayList<Integer> newNumArr= new ArrayList<Integer>(numArr);
+                newNumArr.remove(0);
+                if(!canSum(remainig, firstEle, newNumArr)){
+                    numArr.remove(0);
+                } else {
+                    return true;
+                }
+        }  
+        return false;
+    }
+}
+another approach:-
+DP approach:-
+
+public class Main
+{
+    static HashMap<Integer, Integer> map= new HashMap<Integer,Integer>();
+    
+	public static void main(String[] args) {
+	    System.out.println(sumPossible(13, new int[]{8,9,7,4,10})); 
+	}
+	public static boolean sumPossible(int num, int sumarr[]){
+	    return sumPossible(num, sumarr, new HashMap<Integer, Boolean>());
+	}
+	
+	public static boolean sumPossible(int num, int sumarr[], HashMap<Integer, Boolean> isSumPossible) {
+        if(num ==0){
+            return true;
+        }
+        if(num < 0){
+            return false;
+        }
+        if(isSumPossible.containsKey(num)){
+            return isSumPossible.get(num);
+        }
+        for(int i =0 ; i < sumarr.length; i++){
+            Integer sub = num - sumarr[i];
+            boolean res = sumPossible(sub, sumarr);
+            if(res){
+                return true;
+            }
+            isSumPossible.put(sub, false);
+        }
+        isSumPossible.put(num, false);
+        return false;
+        
+    }
+}
+-----------------------------------------------
+
+Given an array of numbers sorted in ascending order and a target sum, find a pair in the array whose sum is equal to the given target.
+
+Write a function to return the indices of the two numbers (i.e. the pair) such that they add up to the given target. If no such pair exists return [-1, -1].
+if array is sorted, use two pointer approach:-
+public static int[] twoSum(int[] arr, int targetSum) {
+        int i=0;
+        int j = arr.length-1;
+        while(i<j){
+            if(arr[i]+arr[j]==targetSum){
+                return new int[]{i,j};
+            }
+            if(arr[i]+arr[j]> targetSum){
+                j--;
+            }else{
+                i++;    
+            }
+        }
+        return new int[]{-1,-1};
+    }
+when the array is not sorted, you can use hashmap:-
+ public static int[] twoSum(int[] arr, int targetSum) {
+        // Create a hash map to store the number and its index
+        HashMap<Integer, Integer> map = new HashMap<>();
+        
+        // Iterate through the array
+        for (int i = 0; i < arr.length; i++) {
+            int complement = targetSum - arr[i];
+            
+            // Check if the complement exists in the map
+            if (map.containsKey(complement)) {
+                return new int[]{map.get(complement), i};
+            }
+            
+            // Add the current number and its index to the map
+            map.put(arr[i], i);
+        }
+        
+        // If no pair is found, return [-1, -1]
+        return new int[]{-1, -1};
+    }
+----------------------------------------------------------
+given a string of distinct characters eg "ABCD" print all possible ways it can be arranged:-
+
+public static void main(String[] args) {
+		stringPermutation("ABCD");
+	}
+	public static void stringPermutation(String str) {
+        String og =new String(str);
+        for(char ch : str.toCharArray()){
+            String character = ch+"";
+            stringPermutation(character, og.replace(character,"").toCharArray(), og);
+        }
+    }
+	public static void stringPermutation(String str , char remCharArr[], String og) {
+	    
+        if(remCharArr.length==0 ){
+            System.out.println(str);
+            return;
+        }
+        
+        
+        for(char c: remCharArr){
+            String nextStr = str+c;
+            char remArr[]= new String(remCharArr).replace(c+"", "").toCharArray();
+            stringPermutation(nextStr,remArr,og);
+        }
+    }
+
+------------------------------------------------------------
+binary search:-
+public int binarySearch(int[] nums, int target) {
+    int left = 0, right = nums.length - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (nums[mid] == target) return mid;
+        if (nums[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+-------------------------------------------
+gcd of two numbers
+here in a and b (b will be always smaller)
+The key insight is that the GCD of two numbers a and 
+b is the same as the GCD of b and  a mod b. (becuase b will always be the smaller number and we have to keep on reducing the a%b result
+)  This is because any number that divides both a and b must also divide a % b
+public static int gcd(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        return gcd(b, a % b);
+    }
+
+   private static int getFirstDigit(int num) {
+        while (num >= 10) {
+            num /= 10;
+        }
+        return num;
+    }
+
+    // Function to get the last digit of a number
+    private static int getLastDigit(int num) {
+        return num % 10;
+    }
+
+---------------------
+1752. Check if Array Is Sorted and Rotated
+
+
+Always remeber, if you are rotating an sorted array by any positions like this:-
+[1,2,3,4,5] --> shift 1 position --> [5,1,2,3,4]
+then if it is a valid rotation as in if the rotation is done correctly:-
+Always there will be only one scenario where arr[i] > arr[(i+1)% arr.length], else always the next number or arr[(i+1)% arr.length]
+is always bigger
+
+To rotate an array you can use this formula (i + x)%arr.length;
+
+so here x is the shifting number as in how many times the shifting is done
+i is the current index , and this formula will give you a resuktatnt number where you should put the arr[i]
+(shifting will be done ffrom left to right)
+so if you want to rotate by 1 
+then number at index 0 will go at index 1 (this is calculated by the formula)
+ 
+
+
+--------------------
+821. Shortest Distance to a Character
+
+Here the technique is used like, iterate the array twice, on each iteration create a resultant array
+so there will be two arrays having the possible solution
+Then combine those array to create the result array
+two times for loop runnig ius okay
+--------
+
+2006. Count Number of Pairs With Absolute Difference K
+
+
+here brute force will be O(n^2)
+BUt if we use map , we can know how many pairs to make 
+
+public int countKDifference(int[] nums, int k) {
+        Map<Integer, Integer> intCount = new HashMap<Integer, Integer>();
+        int count = 0;
+        for (int i = 0; i < nums.length; i++) {
+            count += intCount.getOrDefault(nums[i] - k, 0);
+            count += intCount.getOrDefault(nums[i] + k, 0);
+            intCount.put(nums[i], intCount.getOrDefault(nums[i], 0) + 1);
+
+        }
+        return count;
+
+}
+
+Another approach is to create an array of size which can accomodate all possible values , like if in an array we can have numbers from 1 
+to 100 then create array of size 100
+
+public int countKDifference(int[] nums, int k) {
+        int count = 0;
+
+        int ca[] = new int[101];
+
+        for(int a: nums){
+            ca[a]++;
+        }
+        
+        for(int i=0; i <101-k; i++){
+            count += ca[i]*ca[i+k];
+        }
+        return count;
+    }
+with this approach we can also solve this question:-
+1748. Sum of Unique Elements
+
+public int sumOfUnique(int[] nums) {
+        int arr[] = new int[101];
+        int sum = 0;
+
+        for (int num : nums) {
+            arr[num]++;
+        }
+        for (int i = 1; i < arr.length; i++) {
+            if (arr[i] == 1) {
+                sum = sum + i;
+            }
+        }
+        return sum;
+    }
+	
+with the same approach of creating an array having size of all possible inputs, we can also solve:-
+
+1710. Maximum Units on a Truck
+
+public int maximumUnits(int[][] boxTypes, int truckSize) {
+        int arr[] = new int[1001];
+        int numOfUnits = 0;
+
+        for (int boxType[] : boxTypes) {
+            arr[boxType[1]] = boxType[0]+ arr[boxType[1]];
+        }
+        for (int i = arr.length - 1; i >= 1; i--) {
+            if (arr[i] != 0) {
+                if (arr[i] <= truckSize) {
+                    numOfUnits += arr[i] * i;
+                    truckSize -= arr[i];
+                } else {
+                    numOfUnits += truckSize * i;
+                    break;
+                }
+
+            }
+        }
+        return numOfUnits;
+    }
+
+	
+----------------------------------------------
+463. Island Perimeter
+public int islandPerimeter(int[][] grid) {
+        int perimeter=0;
+        for(int i =0 ; i <grid.length ; i++){
+            for(int j=0; j< grid[0].length; j++){
+                if(grid[i][j]==0){
+                    continue;
+                }
+                if(i-1<0 || grid[i-1][j]==0){
+                    perimeter++;
+                }
+                if(j+1>grid[0].length-1 || grid[i][j+1]==0){
+                    perimeter++;
+                }
+                if(i+1 > grid.length-1 || grid[i+1][j]==0){
+                    perimeter++;
+                }
+                if(j-1 < 0 || grid[i][j-1]==0){
+                    perimeter++;
+                }    
+            }
+        }
+        return perimeter;
+    }
+----------------------------------
+DYNAMIC SLIDING WINDOW
+FIND THE SMALLEST SUBARRAY WHICH HAS SUM GRETAER THAN THE LOWER LIMIT, AND THAT SUM SHOULD ALSO MININUM ,
+MANJE JAAR LIKE 6 LOWER LIMIT AHE TAAR SMNALLEST SUBARRAY SHOULD HAVE SUM AS 7
+
+public static int smallesSubArrayWithGivenSum(int arr[], int lowerLimit){
+	    
+	    int i=0;
+	    int j=0;
+	    
+	    int currentSum = arr[i];
+	    int minSum=Integer.MAX_VALUE;
+	    int size=Integer.MAX_VALUE;
+	    
+	    int prevI=0;
+	    int prevJ=0;
+	    
+	    while(i<arr.length && j < arr.length){
+	        if(prevJ!= j){
+	            currentSum+=arr[j];
+	        } 
+	        else if(prevI!=i) {
+	            currentSum-=arr[prevI];
+	        }
+	        
+	        if(currentSum >= lowerLimit){
+	            if(currentSum < minSum){
+	                minSum= currentSum;
+	                size= j-i+1;
+	            }
+	            else if(currentSum==minSum && j-i+1 < size){
+	                size=j-i+1;
+	            }
+	            if(i==j){
+	                prevJ=j;
+	                j++;
+	                prevI=i;
+	                continue;
+	            }
+	            prevI=i;
+	            i++;
+	            prevJ=j;
+	        }
+	        else{
+	            prevJ=j;
+	            j++;
+	            prevI=i;
+	        }
+	        
+	        
+	    }
+	    System.out.println("size : "+size);
+	    return minSum;
+	    
+	}
+-----------------------------
+169. Majority Element
+Here the intuition is that, there are regions in the array lets say, [2,2,1,1,3,3,3,3] ,in this array
+0-3 is one region , in this region there is no majority there are equal number of 2s and 1s, so the majority elemet (element that occurs
+more than n/2 times in the array) is not present in this region,so we discard this region 
+so in the remaining region 4-7, 3 occurs the most hence 3 is the majoroty element, this is called
+Boyer Moore Voting algo
+
+Here the intution is that, suppose tuza 10 elemets cha array aahee, aani 8 tuza majproty element aahe jo 6 time appear hoto (more than n/2), taar
+tu 8 laa kaasa paan place kaaar, tulaa ek region milnarach jyachyat 8 maximum vela yeto
+[8,1,8,3,8,1,8,1,8,8], here that region is 8 to 9, last 2 index
+
+
+
+	public static int majorityElement(int[] nums) {
+        int majorityEle = nums[0];
+        int count=0;
+        
+        for(int number:nums){
+            if(number==majorityEle){
+                count++;
+            } else {
+                count--;
+            }
+            if(count==0){
+                majorityEle = number;
+                count=1;
+            }
+        }
+        return majorityEle;
+    }
+------------------------------------------
+136. Single Number
+Here we have to use XOR operator 
+1.Here the intuition is that 2 same numbers, if we do an XOR they will always result in 0 for eg 3 XOR 3 == 0 
+	(so if we are given an array {4,1,2,1,2}, 1,1 and 2,2 will cancel each other out, and only one element will be left which is your single elemet)
+2. In XOR same aasel taar zero, different asel taar 1 so 1 XOR 1 == 0 , 0 xor 0 == 0, 1 xor 0 == 1, 0 xor 1 == 1 
+3. XOR with zero will always be that number 1 xor 0 == 1, 0 xor 0 will be 0
+
+code:-
+https://www.youtube.com/watch?v=qMPX1AOa83k -- good video about it
+
+public static int singleNumber(int[] nums) {
+	 int a=0;
+	 for(int i = 0 ; i<nums.length ; i++){
+	    a= a ^ nums[i];
+	 }
+	 return a;
+}
+------------------------------------------------
+1380. Lucky Numbers in a Matrix
+class Solution {
+    public List<Integer> luckyNumbers (int[][] matrix) {
+       
+        List<Integer> lucky = new ArrayList<Integer>();
+        for(int i = 0 ; i< matrix.length; i++ ){
+            int index=-1;
+            int min= Integer.MAX_VALUE;
+            
+            for(int j =0; j< matrix[i].length ; j++){
+                if(matrix[i][j] < min ){
+                    index = j;
+                    min= matrix[i][j];
+                }
+            }
+            boolean isTrue= true;
+            for(int j =0; j< matrix.length ; j++){
+                if(matrix[i][index] < matrix[j][index]){
+                    isTrue= false;
+                    break;
+                }
+            }
+            if(isTrue){
+                lucky.add(matrix[i][index]);
+            }
+        }
+        return lucky;
+       
+    }
+}
+--------------------------
+CREATING A BINARY SEARCH TREE
+
+public class Main
+{
+    
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		int arr[]=new int[]{6,4,7,5,0,1,3,7};
+		Node root = null;
+		
+		for(int data: arr){
+		    root=insert(root, data);
+		}
+		System.out.println(root.data);
+		System.out.println(root.left.right.data);
+		System.out.println(root.left.left.data);
+	}
+	public static Node insert(Node root, int data){
+	   if(root==null){
+	       root = new Node(data);
+	       return root;
+	   }
+	   if(data< root.data){
+	       root.left = insert(root.left, data);
+	   }
+	   else if(data> root.data){
+	       root.right= insert(root.right,data);
+	   }
+	   
+	   return root;
+	}
+}
+-------------------
+SEARCHING IN BINARY SEARCH TREE
+public static boolean search(Node root, int key){
+	    if(root==null){
+	        return false;
+	    }
+	    if(root.data==key){
+	        return true;
+	    }
+	    boolean found = key < root.data ? search(root.left, key) : search(root.right, key);
+	    return found;
+	}
+-----------------------------------
+PROGRAM TO KJNOW IF TWO TREES ARE EQUAL (HAVE EQUAL CONTENT) OR NOT
+
+public static boolean isSameTree(TreeNode p, TreeNode q) {
+	    boolean isSame= false;
+	    
+	    if(((p!=null)&&(q==null)) || ((p==null)&&(q!=null))){
+	        return false;
+	    }
+	    if(p==null && q==null){
+	        return true;
+	    }
+	    if(p.val==q.val){
+	        isSame= true;
+	    } else {
+	        return false;
+	    }
+	    isSame = isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+	    
+	    return isSame;
+	        
+	    
+        
+    }
+aLTERNATE APPROACH:-
+
+public boolean isSameTree(TreeNode p, TreeNode q) {
+        boolean isSame = true;
+
+        if (((p != null) && (q == null)) || ((p == null) && (q != null))) {
+            return false;
+        }
+        if (p == null && q == null) {
+            return true;
+        }
+        if (p.val != q.val) {
+            return false;
+        }
+        isSame = isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+
+        return isSame;
+    }
+------------------------
+
+PROGRAM TO CALCULATE MAXPATH (HAVING HEIGEST NUMBER OF NODES) IN A BINARY TREE
+
+	public static int maxPath(Node root){
+	 
+	    if(root==null){
+	        return 0;
+	    }   
+	    int daimeterLeft = maxPath(root.left);
+	    int daimeterRight = maxPath(root.right);
+	    int height = height(root);
+	    
+	    return Integer.max(daimeterLeft, daimeterRight, height);
+	}
+	
+	public static int height(Node root){
+	    
+	    if(root==null){
+	        return 0;
+	    }
+	    int height = Integer.max(height(root.left), height(root.right));
+	    return height+1;
+	}
+------------------------------------------
+CALCULATING SUM OF NODES IN BINARY TREE
+public static int sumOfNode(Node root){
+	   
+	   if(root==null){
+	       return 0;
+	   }
+	   int sum = root.data + sumOfNode(root.left) + sumOfNode(root.right);
+	   return sum;
+	    
+	}
+----------------------------------------------
+CALCULATING HEIGHT OF BINARY TREE TREE	
+public static int heightOfTree(Node root){
+	    
+	    if(root==null){
+	        return 0;
+	    }
+	    int maxHeight = Integer.max(heightOfTree(root.left), heightOfTree(root.right));
+	    return maxHeight+1;
+	}
+
+-------------------------------------------
+COUNTING NUMBER OF NODES IN BINARY TRREE
+
+public static void countingNode(Node root){
+	    if(root==null){
+	        return;
+	    }
+	    count++;
+	    countingNode(root.left);
+	    countingNode(root.right);
+	    
+	}
+ALTERNATE APPROACH
+public static int countingNode(Node root){
+	   
+	   if(root==null){
+	       return 0;
+	   }
+	   int count = 1 + countingNode(root.left) + countingNode(root.right);
+	   return count;
+	    
+	}
+
+-----------------------
+LEVEL ORDER TRANSVERSAL IN BINARY TREE
+
+public static void levelOrderTransversal(Node rootnode){
+        ArrayList<Node> queue = new ArrayList<Node>();
+        
+        queue.add(rootnode);
+        
+        while(!(queue.isEmpty())){
+            
+            Node current = queue.remove(0);
+            if(current==null){
+                
+                continue;
+            }
+            System.out.print(current.data);
+            queue.add(current.left);
+            queue.add(current.right);
+            
+        }
+        
+	}
+
+----------------------------------------------
+POSTORDER TRANSVERSAL IN BINARY TREE
+
+public static void preOrder(Node root){
+
+	if(root == null){
+		return;
+	}
+	preOrder(root.left);
+	preOrder(root.right);
+	System.out.println(root.data);
+	
+}
+-------------------------------------------------
+PREORDER TRANSVERSAL IN BINARY TREE
+public static void preOrder(Node root){
+
+	if(root == null){
+		return;
+	}
+	System.out.println(root.data);
+	preOrder(root.left);
+	preOrder(root.right);
+	
+}
+-------------------------------------------
+INORDER TRANSVERSAL IN BINARY TREE
+public static void preOrder(Node root){
+
+	if(root == null){
+		return;
+	}
+	preOrder(root.left);
+	System.out.println(root.data);
+	preOrder(root.right);
+	
+}
+
+-------------------------------------
+CREATING BINARY TREE EASY APPROACH USING RECURSSION
+public static Node createBinaryTree(int arr[]){
+	    
+	    i++;
+	    if(arr[i]==-1){
+	        return null;
+	    }
+	    Node node = new Node(arr[i]);
+	    node.left = createBinaryTree(arr);
+	    node.right = createBinaryTree(arr);
+	    
+	    return node;
+	}
+	
+	
+public static TreeNode createBinaryTree(Integer arr[]){
+	    
+	    i++;
+	    if(i>= arr.length){
+	        return null;
+	    }
+	    if(arr[i]==null){
+	        return null;
+	    }
+	    TreeNode node = new TreeNode(arr[i]);
+	    node.left = createBinaryTree(arr);
+	    node.right = createBinaryTree(arr);
+	    
+	    return node;
+	}
+----------------------
+CREATING A BINARY SEARCH TREE PHALTU APPROACH
+
+public static void main(String[] args) {
+		int arr[] = {1,2,4,-1,-1,5,-1,-1,3,-1,6,-1,-1};
+		createBinaryTree(arr);
+	}
+public static void createBinaryTree(int arr[]){
+	    Stack<Node> stack = new Stack<Node>();
+	    int i=1;
+	    int direction = 0;
+	    Node rootnode= new Node(arr[0], null, null);
+	    stack.push(rootnode);
+	    while(i< arr.length){
+	        
+	        if(!(stack.isEmpty()) && arr[i] == -1){
+	            if(direction==1){
+	                stack.pop();
+	                direction=1;
+	                i++;
+	                continue;
+	            }
+	            direction=1;
+	            i++;
+	            continue;
+	        } else if(!(stack.isEmpty()) && stack.peek().left !=null && stack.peek().right !=null && arr[i] != -1){
+	            stack.pop();
+	            direction= 1;
+	        }
+	   
+	        Node node=null;
+	        if(arr[i]!= -1){
+	            node = new Node(arr[i], null, null);
+	        }
+	        Node current = stack.peek();
+	        System.out.println("direction "+direction);
+	        if(direction == 0){
+	            current.left= node;
+	            if(node==null){
+	                direction=1;
+	            } else {
+	                 stack.push(node);
+	                 direction =0;
+	            }
+	        } else {
+	            current.right=node;
+	            if(node==null){
+	                System.out.println("popped: "+ stack.pop()) ;
+	                direction=1;
+	            } else {
+	                System.out.println("data "+node.data);
+	                stack.push(node);
+	                direction = 0;
+	            }
+	        }
+	        i++;
+	        
+	    }
+	    
+	    System.out.println(rootnode.data);
+	    System.out.println(rootnode.left.data);
+	    System.out.println(rootnode.left.left.data);
+	    System.out.println(rootnode.left.right.data);
+	    System.out.println(rootnode.right.data);
+	    System.out.println(rootnode.right.right.data);
+
+	    
+	}
+
+
+
+------------------
+GETTING COUNT OF ALL SUBGRAPH
+
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
+		
+		map.put("a", new ArrayList<String>(Arrays.asList(new String[]{"b"})));
+		map.put("b", new ArrayList<String>(Arrays.asList(new String[]{"c","d","e"})));
+		map.put("c", new ArrayList<String>(Arrays.asList(new String[]{})));
+		map.put("d", new ArrayList<String>(Arrays.asList(new String[]{})));
+		map.put("e", new ArrayList<String>(Arrays.asList(new String[]{"l", "k"})));
+		map.put("l", new ArrayList<String>(Arrays.asList(new String[]{})));
+		map.put("k", new ArrayList<String>(Arrays.asList(new String[]{})));
+		map.put("j", new ArrayList<String>(Arrays.asList(new String[]{"m"})));
+		map.put("m", new ArrayList<String>(Arrays.asList(new String[]{})));
+		map.put("z", new ArrayList<String>(Arrays.asList(new String[]{"l"})));
+		map.put("n", new ArrayList<String>(Arrays.asList(new String[]{"o"})));
+		map.put("o", new ArrayList<String>(Arrays.asList(new String[]{})));
+		
+		getCountOfAllSubGraph(map);
+	}
+	public static void getCountOfAllSubGraph(HashMap<String, ArrayList<String>> map){
+	    
+	    Set<String> nodeSet = map.keySet();
+	    
+	    HashSet<String> visited = new HashSet<String>();
+	    Stack<String> stack = new Stack<String>();
+	    
+	    int count= 0;
+	    
+	    for(String key : nodeSet){
+	        
+	        if(!(visited.contains(key))){
+	            
+	            stack.push(key);
+	            while(!(stack.isEmpty())){
+	                String current = stack.pop();
+	                visited.add(current);
+	                
+	                for(String neighbour : map.get(current)){
+	                    stack.push(neighbour);
+	                }
+	                
+	            }
+	            count++;
+	        }
+	        
+	    }
+	    System.out.println(count);
+	    
+	}
+
+
+
+
+
+
+
+-----------------
+Creating an undirected graph and trying to find out if a path exsist or not
+
+import java.util.*;
+import java.util.stream.*;
+import java.util.function.*;
+import java.util.stream.Collectors;
+import java.util.stream.Collectors.*;
+
+public class Main
+{
+	public static void main(String[] args) {
+		ArrayList<ArrayList<String>> edges = new ArrayList<ArrayList<String>>();
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"i","j"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"k","i"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"m","k"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"k","l"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"o","n"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"k","j"})));
+        
+        HashMap<String, ArrayList<String>> graph = createUnDirectedGraph(edges);
+        System.out.println(hasPathOrNot(graph, "i", "o"));
+        
+	}
+	public static boolean hasPathOrNot(HashMap<String, ArrayList<String>> graph, String source, String dest){
+	    Stack<String> stack = new Stack<String>();
+	    stack.push(source);
+	    
+	    ArrayList<String> visited = new ArrayList<String>();
+	    visited.add(source);
+	    while(!stack.isEmpty()){
+	        String current = stack.pop();
+	        if(current.equalsIgnoreCase(dest)){
+	            return true;
+	        }
+	        ArrayList<String> neighbours = graph.get(current);
+	       
+	        neighbours.stream().forEach(n->{
+	            if(!(stack.contains(n)) && !(visited.contains(n))){
+	                stack.push(n);
+	            }
+	        });
+	        neighbours.stream().forEach(n->{
+	            if(!visited.contains(n)){
+	                visited.add(n);
+	            }
+	        });
+	    }
+	    return false;
+	}
+	public static HashMap<String, ArrayList<String>> createUnDirectedGraph(ArrayList<ArrayList<String>> edges){
+	    HashMap<String, ArrayList<String>> graph = new HashMap<String, ArrayList<String>>();
+	    
+	    for(int i = 0 ; i < edges.size() ; i++){
+	        ArrayList<String> nodes = edges.get(i);
+	        nodes.stream().forEach(e->{
+	            if(!(graph.keySet().contains(e))){
+	                graph.put(e, new ArrayList<String>());
+	            }
+	        });
+	        
+	        nodes.stream().forEach(k->{
+	            ArrayList<String> values = graph.get(k);
+	            edges.stream().forEach(p->{
+	                if(p.contains(k)){
+	                    p.forEach(e->{
+	                        if(!(e.equalsIgnoreCase(k))){
+	                            if(!(values.contains(e))){
+	                                
+	                            values.add(e);
+	                            }
+	                        }
+	                    });
+	                    
+	                    graph.put(k,values );
+	                }
+	            });
+	        });
+	        
+	    }
+	    return graph;
+	}
+}
+
+
+----------------------------------------------------------
+
+Creating an undirected graph:-
+	public static void main(String[] args) {
+		ArrayList<ArrayList<String>> edges = new ArrayList<ArrayList<String>>();
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"i","j"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"k","i"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"m","k"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"k","l"})));
+        edges.add(new ArrayList<String>( Arrays.asList(new String[]{"o","n"})));
+        
+        createMap(edges);
+	}
+	public static void createUnDirectedGraph(ArrayList<ArrayList<String>> edges){
+	    HashMap<String, ArrayList<String>> graph = new HashMap<String, ArrayList<String>>();
+	    
+	    for(int i = 0 ; i < edges.size() ; i++){
+	        ArrayList<String> nodes = edges.get(i);
+	        nodes.stream().forEach(e->{
+	            if(!(graph.keySet().contains(e))){
+	                graph.put(e, new ArrayList<String>());
+	            }
+	        });
+	        
+	        nodes.stream().forEach(k->{
+	            ArrayList<String> values = graph.get(k);
+	            edges.stream().forEach(p->{
+	                if(p.contains(k)){
+	                    p.forEach(e->{
+	                        if(!(e.equalsIgnoreCase(k))){
+	                            if(!(values.contains(e))){
+	                                
+	                            values.add(e);
+	                            }
+	                        }
+	                    });
+	                    
+	                    graph.put(k,values );
+	                }
+	            });
+	        });
+	        
+	    }
+	    System.out.println(graph);
+	}
+
+SIMPPLE ALTERNATE APPROACH :- 
+public static void createUnDirectedGraph(ArrayList<ArrayList<String>> edges){
+	    HashMap<String, ArrayList<String>> graph = new HashMap<String, ArrayList<String>>();
+	    
+	    edges.stream().forEach(pair ->{
+	        String a = pair.get(0);
+	        String b = pair.get(1);
+	        
+	        if(!(graph.containsKey(a))){
+	            graph.put(a, new ArrayList<String>());
+	        }
+	        if(!(graph.containsKey(b))){
+	            graph.put(b, new ArrayList<String>());
+	        }
+	        graph.get(a).add(b);
+	        graph.get(b).add(a);
+	        
+	    });
+	    
+	    System.out.println(graph);
+	    
+	    
+	}
+------------------
+breadth first search is also same just use a queue instead of stack
+
+DEPT FIRST SEACH DIFFICULT IMPLEMENTATION
+
+public static void main(String[] args) {
+		System.out.println("Hello World");
+		HashMap<String, ArrayList<String>> graph= new HashMap<String, ArrayList<String>>();
+		
+		graph.put("a",new ArrayList<String>(Arrays.asList(new String[]{"b","f"})));
+		graph.put("b",new ArrayList<String>(Arrays.asList(new String[]{"c","d", "j"})));
+		graph.put("c",new ArrayList<String>(Arrays.asList(new String[]{})));
+		graph.put("d",new ArrayList<String>(Arrays.asList(new String[]{"e","k"})));
+		graph.put("e",new ArrayList<String>(Arrays.asList(new String[]{"f"})));
+		graph.put("f",new ArrayList<String>(Arrays.asList(new String[]{})));
+		graph.put("j",new ArrayList<String>(Arrays.asList(new String[]{})));
+		graph.put("k",new ArrayList<String>(Arrays.asList(new String[]{"l"})));
+		graph.put("l",new ArrayList<String>(Arrays.asList(new String[]{})));
+		
+		deptFirstSearch(graph,"a");
+		
+	}
+	
+	public static void deptFirstSearch(HashMap<String, ArrayList<String>> graph, String startNode){
+        GraphStack stack = new GraphStack();
+	    HashMap<String, ArrayList<String>> subGraph = new HashMap<String, ArrayList<String>>();
+	    ArrayList<String> neighbourNodes;
+	    int i=0;
+	    String start= startNode;
+	    System.out.println(startNode);
+	    while(true){
+	        if(subGraph.isEmpty() || !(subGraph.keySet().contains(startNode))){
+	            neighbourNodes = graph.get(startNode);
+	        } else {
+	            neighbourNodes = subGraph.get(startNode);    
+	        }
+	        
+	        if(startNode==start && !(subGraph.isEmpty()) && subGraph.get(startNode).isEmpty()){
+	            break;
+	        }
+	        ArrayList<String> subArraylist = new ArrayList<String>(neighbourNodes);
+	        if(subArraylist.size()!=0){
+	            
+	            subArraylist.remove(0);
+	             
+	        }
+	        subGraph.put(startNode, subArraylist);
+	        if(!(stack.stack.contains(startNode))){
+	            
+	            stack.push(startNode);
+	        }
+	        if(neighbourNodes.isEmpty()){
+	            stack.pop();
+	            startNode= stack.peek();
+	            continue;
+	        }
+	        System.out.println(neighbourNodes.get(0));
+	        startNode = neighbourNodes.get(0);
+	       
+	    }
+	}
+DEPT FIRST SEARCH SIPLIFIED APPROACH:-
+
+public static void deptFirstSearch(HashMap<String, ArrayList<String>> graph, String startNode){
+	    GraphStack stack = new GraphStack();
+        stack.push(startNode);
+        while(!stack.stack.isEmpty()){
+            System.out.println(stack.peek());
+            ArrayList<String> subArr = graph.get(stack.peek());
+            stack.pop();
+            subArr.stream().forEach(e->stack.push(e));
+        }
+}
+
+DEPT FIRST SEARCH USING RECURSSION:-
+
+public static void deptFirstSearch(HashMap<String, ArrayList<String>> map, String startNode){
+	    
+	    System.out.println(startNode);
+	    ArrayList<String> neighbours= map.get(startNode);
+	    for(String neighbour: neighbours){
+	        deptFirstSearch(map,neighbour);
+	    }
+	    return;
+	    
+}
+--------------------------------------------
+NORMAL DEPT FIRST SEARCH (EXPLORES ONLY ONE PATH, FROM THE START NODE)
+
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		HashMap<String, ArrayList<String>> graph= new HashMap<String, ArrayList<String>>();
+		
+		graph.put("a",new ArrayList<String>(Arrays.asList(new String[]{"b","c"})));
+		graph.put("b",new ArrayList<String>(Arrays.asList(new String[]{"d"})));
+		graph.put("c",new ArrayList<String>(Arrays.asList(new String[]{"f"})));
+		graph.put("d",new ArrayList<String>(Arrays.asList(new String[]{"f"})));
+		graph.put("f",new ArrayList<String>(Arrays.asList(new String[]{})));
+		
+		deptFirstSearch(graph,"c");
+		
+	}
+	
+	public static void deptFirstSearch(HashMap<String, ArrayList<String>> graph, String startNode){
+	    Set<String> nodes= graph.keySet();
+	    ArrayList<String> neighbourNodes;
+	    System.out.println(startNode);
+	    while(true){
+	        neighbourNodes = graph.get(startNode);
+	        if(neighbourNodes.isEmpty()){
+	            break;
+	        }
+	        System.out.println(neighbourNodes.get(0));
+	        startNode = neighbourNodes.get(0);
+	    }
+	}
+
+--------------------------------------
+Bubble sort
+
+public static void bubbleSort(int nums[]) {
+        
+        for(int i=0; i< nums.length-1; i++){
+            for(int j=i+1;j<nums.length;j++){
+                if(nums[j]<nums[j-1]){
+                    int temp = nums[j];
+                    nums[j]= nums[j-1];
+                    nums[j-1]= temp;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(nums));
+    }
+
+------------------------------
+SHUFFLING ARRAY IN-PLACE (Suppose you are given an array [1,2,3,4,5,6,7,8] then the output should be [1,5,2,6,3,7,4,8])
+
+public static int[] shuffle(int[] nums, int n) {
+        int counter= 0;
+        int i=0;
+        while(counter<=n && i< nums.length){
+            if(counter+n< nums.length){
+                int temp= nums[n+counter];
+                for(int j=counter+n;j>i;j--){
+                    if(j==i+1){
+                        nums[j]=temp;
+                        break;
+                    }
+                    nums[j]=nums[j-1];
+                }
+                counter++;
+                i=i+2;
+            } else {
+                break;
+            }
+            
+        }
+        return nums;
+    }
+
+
+
+38. Count and Say, 205. Isomorphic Strings --optimize it
+----------
+calculating x to the power n using recursiion (optimized solution)
+
+public static int givePower (int x, int n)
+  {
+	if (x == 0)
+	  {
+		return 0;
+	  }
+	if (n == 0)
+	  {
+		return 1;
+	  }
+	if (n % 2 == 0)
+	  {
+
+		return givePower (x, n / 2) * givePower (x, n / 2);
+	  }
+	else
+	  {
+		return givePower (x, n / 2) * givePower (x, n / 2) * x;
+	  }
+
+  }
+
+
+----------------
+if we have a sorted 2d array
+Integers in each row are sorted in ascending from left to right.
+Integers in each column are sorted in ascending from top to bottom.
+Then how do you find a element
+public boolean searchMatrix(int[][] matrix, int target) {
+        int j = matrix[0].length - 1;
+        int i = 0;
+
+        while (j >= 0 && i < matrix.length) {
+            if (matrix[i][j] == target) {
+                return true;
+            } else if (matrix[i][j] > target) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        return false;
+    }
+----------------------------
+pivot index (jaar tu toh index sodlaa taar tyachya left walyanacha sum and tyachya right walyacha sum same pahije)
+
+public static int pivotIndex (int nums[])
+  {
+	int wholeArraySum=0;
+	wholeArraySum=Arrays.stream(nums).sum();
+	int leftSum=0; 
+	
+	for(int i =0; i<nums.length;i++){
+	    if((wholeArraySum-leftSum-nums[i])==leftSum){
+	        return i;
+	    }
+	    leftSum+=nums[i];
+	}
+	return -1;
+  }
+
+-------------
+calculating frequency of a number in sorted array
+public static void numIdenticalPairs (int[]nums)
+  {
+	int freq=1;
+	int i =1;
+	while(i<nums.length){
+	    
+	    while(i<nums.length && nums[i-1]==nums[i]){
+	        freq++;
+	        i++;
+	    }
+	    System.out.println("number : "+nums[i-1] + " freq : "+freq);
+	    freq=1;
+	    i++;
+	}
+	if(nums.length==1 || nums[i-1]!=nums[i-2]){
+	    System.out.println("number : "+nums[i-1] + " freq : "+freq);
+	}
+	
+  }
+
+-----------------------
+Sliding window
+
+public static int maxsum(int[] nums, int windowSize) {
+	    int maxSum = Integer.MIN_VALUE;
+	    int windowSum=0 ;
+		//finding initail window sum 
+	    for(int i =0;i<windowSize;i++){
+	        windowSum+=nums[i];
+	    }
+	    maxSum=maxSum>windowSum ? windowSum: maxSum;
+	    
+	    for(int i = windowSize; i<nums.length; i++ ){
+	        windowSum=windowSum-nums[i-windowSize]+ nums[i];
+	        maxSum=windowSum > maxSum ? windowSum: maxSum;
+	    }
+	    return maxSum;
+    }
+----------------------------------------------
+Build Array from Permutation
+Supoose aashi condition ahe ki, at a index position i, you have to store 2 values and in future retrive any one value, taar you can do this
+Here we use formula ans = a + const * b	(so if we do ans/const we get b , ans%const we get a)
+	public int[] buildArray(int[] nums) {
+        int CONST =1007;
+	    //supoose in the same array you want to store meta data, like two numbers you want to store in same place
+	    //ans = a+const*b
+	    //ans/const will give b
+	    //ans%const will give you a
+	    for(int i =0;i<nums.length;i++){
+	        int a= nums[i];
+	        int b= nums[nums[i]]%CONST;
+	        nums[i]= a+CONST*b;
+	    }
+	    
+	    for(int i =0;i<nums.length;i++){
+	        nums[i]= nums[i]/CONST;
+	    }
+	    return nums;
+    }
+
+
+
+
+
+------------------------------------
+
+plus one :- if a big integer for 7777788888999996666 is filled in an array [7,7,7,7,7,8,8,8,8,8] like this , add 1 to it
+
+ public int[] plusOne(int[] digits) {
+        for(int i=digits.length-1 ; i>=0 ;i-- ){
+	        if(digits[i]+1==10){
+	            if(i==0){
+	                int finalArr[] =new int[digits.length+1];
+	                finalArr[0]=1;
+	                Arrays.fill(finalArr, 1, digits.length,0);
+	                return finalArr;
+	            }
+	            digits[i]=0;
+	            continue;
+	        } else {
+	            digits[i]+=1;
+	            break;
+	        }
+	    }
+	    return digits;
+    }
+	
+-------------------------------------	
+merge sorted array
+	public static void merge(int[] nums1, int m, int[] nums2, int n) {
+	    int j=0;
+	    int backIndex=m;
+	    if(n!=0){
+	        for(int i=0; i <m+n; i++){
+	            if(j<n){
+	               if(nums1[i]>=nums2[j]) {
+	                    for(int k=backIndex;k>i;k--){
+	                        nums1[k]=nums1[k-1];
+	                    }
+	                    nums1[i]= nums2[j++];
+	                    if(backIndex+1 <= m+n-1)
+	                        backIndex+=1;
+	               } else if(i>=backIndex && j<n){
+	                   nums1[i]=nums2[j++];
+	               }
+	            }
+	        }
+	    } else if (m==0 && n>=1) {
+	        for(int l=0 ;l<n; l++ ){
+	            nums1[l]=nums2[l];
+	        }
+	    }
+	    System.out.println( Arrays.toString(nums1));
+        
+    }
+	
+linkedlist
+
+Doubly linked list
+import java.util.*;
+
+class Node{
+    int data;
+    Node next;
+    Node previous;
+    
+    Node(int data, Node next, Node previous){
+        this.data= data;
+        this.next= next;
+        this.previous = previous;
+    }
+    Node(int data){
+        this.data=data;
+        this.previous= null;
+        this.next=null;
+    }
+    
+    public String toString(){
+        return "Node: Data : "+data+" next: "+next.toString()+ " previous: "+previous.toString();
+    }
+    public boolean equals(Object obj){
+        if(obj==null || !(obj instanceof Node)) return false;
+        if(obj== this) return true;
+        Node node= (Node) obj;
+        return node.data == this.data;
+        
+    }
+    public int hashCode(){
+        return Objects.hash(data);        
+    }
+}
+
+class DoubleyLinkedList{
+    Node head;
+    
+    DoubleyLinkedList(){
+        head= null;
+    }
+    
+    public void display(){
+        if(head==null){
+            System.out.println("Linked list is empty");
+            return;
+        }
+        Node counter = head;
+        
+        while(counter != null){
+            System.out.println(counter.data + " ");
+            counter=counter.next;
+        }
+        System.out.println("-----------------");
+    }
+    public int size(){
+        if(head==null){
+            return 0;
+        }
+        int size =0;
+        Node counter = head;
+        while(counter != null){
+            size++;
+            counter=counter.next;
+        }
+        return size;
+    }
+    
+    
+    public void add(int data){
+        Node node = new Node(data);
+        if(head==null){
+            head=node;
+            return;
+        }
+        Node counter = head;
+        
+        while(counter.next != null){
+            counter= counter.next;
+        }
+        counter.next = node;
+        node.previous = counter;
+    }
+    public int removeByData(int data){
+        if(head==null){
+            System.out.println("Nothing in the list");
+            return 0;
+        }
+        if(head.data==data){
+            head= head.next;
+            return head.data;
+        }
+        Node pointer = head;
+        while(pointer != null){
+            if(pointer.data==data){
+                pointer.previous.next = pointer.next;
+                pointer.next.previous = pointer.previous;
+                return pointer.data;
+            }
+            pointer = pointer.next;
+        }
+        System.out.println("Not found");
+        return 0;
+    }
+    public int remove(int index){
+        if(head==null){
+            System.out.println("Nothing in the list");
+            return 0;
+        }
+        if(index > size()){
+            System.out.printf("This position is not there");
+            return 0;
+        }
+        if(index ==1){
+            head = head.next;
+            return 0;
+        }
+        
+        int i=1;
+        Node pointer = head;
+        while(i != index){
+            pointer = pointer.next;
+            i++;
+        }
+        
+        pointer.previous.next = pointer.next;
+        if(pointer.next != null){
+            pointer.next.previous = pointer.previous;
+        }
+        return pointer.data;
+    }
+    
+    
+}
