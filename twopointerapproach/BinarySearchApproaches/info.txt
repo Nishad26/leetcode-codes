@@ -1,0 +1,6 @@
+---------------------------------------------
+For Binary Search
+mid = low + (high - low) / 2;
+    = low + (high / 2 - low / 2);
+    = (low / 2 + high / 2);
+    = (low + high) / 2;

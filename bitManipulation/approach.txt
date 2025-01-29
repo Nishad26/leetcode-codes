@@ -1,0 +1,142 @@
+------------
+Checking the number of set bits in a number
+public static void main(String[] args) {
+	int num=12;
+	int count=0;
+	while(num!=0){
+	    if((num & 1)!=0){
+	        count++;
+	    }
+	    num = num>>1;
+	}
+	System.out.println(count);
+}
+Here main observation is that, if the number is odd the rightmost bit will always be 1 
+so 
+if(num & 1 >0){
+    println(number is odd);
+}
+------------------------------
+Check if the number is power of 2
+(you can solve it using the :- unsetting the rightmost set bit)
+if((num & (num -1))==0){
+    println(power of 2)
+} else {
+    println(not a power of 2)
+}
+since number num-1, will have all the bits to the right of the rightmost set bit of num as 1 (or set) 
+and as if the number is power of 2 it will have only one set bit , Anding the two num & (num-1) will be zero
+---------------------------------
+unsetting the rightmost set bit :-
+naive approach:-
+//find the rightmost set bit using while loop and then unset it using AND
+//as Anding with 1 gives the same number
+public static void main(String[] args) {
+	int num=15;
+	int temp=1;
+	while((num&temp)==0){
+	    temp=temp<<1;
+	}
+	System.out.println(num & ~(temp));
+}
+Better approach
+Think asa ki suppose you have 16 tycha binary is 0001 0000, so 1 chya nantr che sagle combine kele taar
+we will get 16-1 == 15, you can take any number lets say 12 = 1100, so 1011=11
+so ith power of 2 = sum of previos i-1 th power +1
+
+SO WE CAN USE THIS ABOVE observation:-
+
+int result = num & (num - 1);//Anding it will make the ith rightmost set bit as 0, rest if the number will
+                            // remain same as bits previos to the rightmost set bit will be 1 
+                            //anding with 1 gives the same number
+                            //bits after the rightmost set bit will not be affected as anding with same number
+                            //gives the same number 
+System.out.println("Number after unsetting the rightmost set bit: " + result);
+------------------------
+1.if you and with zero , everthing turns to zero 
+2.if you and with 1 as in (1111), you get the same number
+3.if you perform a bitwise AND operation between a number and itself, you will always get the same number as the result.
+
+2.if you or with 0 you get the same number
+
+3.If you xor with the same number, you get zero.
+4.xor with zero gives the same number
+--------------
+how to set ith bit:-
+public static void main(String[] args) {
+	int num=9;
+	int ith=2;
+	int c= (1<<ith)|num;
+	System.out.println(c);
+}
+how to unset ith bit:-
+int num=13;
+int ith=2;
+int c= ~(1<<ith)&num;
+System.out.println(c);
+
+how to toggle ith bit
+int num=13;
+int ith=1;
+int c= (1<<ith)^num;
+System.out.println(c);
+--------------
+How to swap 2 numvers without using the third number
+public static void main(String[] args) {
+	int a=5;
+	int b=6;
+    a=a^b; //here a= a^b
+	b=a^b; //here b= (a^b)^b , so b will cancel out to 0 so essentially b is equal to a
+    a=a^b; //here a= (a^b)^(a) , since b = a, so a will cancel out each other
+	System.out.println(b);
+	System.out.println(a);
+}
+-----------------
+1.2 same numbers, if we do an XOR they will always result in 0 for eg 3 XOR 3 == 0 
+	(so if we are given an array {4,1,2,1,2}, 1,1 and 2,2 will cancel each other out, and only 
+    one element will be left which is your single elemet)
+2. In XOR same aasel taar zero, different asel taar 1 so 1 XOR 1 == 0 , 0 xor 0 == 0, 1 xor 0 == 1, 0 xor 1 == 1 
+3. XOR with zero will always be that number 1 xor 0 == 1, 0 xor 0 will be 0
+-----------------------
+CHECK IF THE ith bit is set or not
+This is using right shift.
+public static void main(String[] args) {
+	    //Check the ith bit is set or not
+	    int num=13;
+	    int ithpos=2;
+	    // 1<<2 will be 0100, 0100 & 1101 ,makes the result eigther all zero or only one 1 (at that index)
+	    if(((1<<ithpos)&num)==0){
+	        System.out.println("Not set");
+	    } else {
+	        System.out.println("set");
+	    }
+}
+
+This is using left shift.
+//Check the ith bit is set or not
+int num=13;
+int ithpos=2;
+// 1<<2 will be 0100, 0100 & 1101 ,makes the result eigther all zero or only one 1 (at that index)
+if(((num>>ithpos)&1)==0){
+    System.out.println("Not set");
+} else {
+    System.out.println("set");
+}
+-------------------
+Converting binary string to integer in java
+String binaryString = "1010"; // Example binary string
+int decimal = Integer.parseInt(binaryString, 2);
+System.out.println("Decimal value: " + decimal);
+
+In Java, when you convert a binary string to an 
+integer using Integer.parseInt(), the result is treated as a signed integer
+
+Java doesn't have built-in support for unsigned integers in the int type.
+If you're dealing with a binary string that represents an unsigned 32-bit integer, 
+and you need to handle values larger than Integer.MAX_VALUE (2,147,483,647), 
+you should use Long.parseLong() instead:
+
+String binaryString = "11111111111111111111111111110110"; // Unsigned binary string
+long decimal = Long.parseLong(binaryString, 2);
+System.out.println(decimal);  // Output: 4294967286
+-----------------------------

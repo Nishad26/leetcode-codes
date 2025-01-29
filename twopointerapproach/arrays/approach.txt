@@ -1,0 +1,234 @@
+---------------------
+Todays learning
+
+1. maximum number of concescutive, subarray, subsequnece, (sliding window/two pointers can be applied)
+1.In sliding window in order to get the first element of the window we do 
+current element mostly j - window size k so j-k
+1. In sliding window when your j caanot move ahaead beacouse of violation of some condition, 
+only one way is Left to move your i forward , so by anyway try to do it
+1. Like in the problem (T to F leetcode 2024), you can try applying sliding window twice
+and then by comparing answers,see if you get the solution 
+
+
+2. In two pointers/sliding window == j-i+1 gives you number of elemts in subarray
+
+3. In prefix sum always remember, prefix sum at j - prefix sum at i = target
+    prefix[j]- prefix[i]= target -->this will denote your sum of subarray from i+1 to j
+    what you genrally do is
+    prefix[j]- target = prefix[i] (and this prefix[i] you try to find it in hashmap)
+
+4. subarray having maximum sum is cadens algorithm
+
+5.Supoose you are at index j and you want to find subarrays having j as last index
+formuala is 
+number of subarrays having j as last index= j-i + 1
+
+6.number of elemts between i+1 to j = j-i;
+  number of elemts beyween i (i includingx) to j = j-i+1
+
+7.So yeah, O(1) < O(logn) < O(n) < O(nlogn) holds true.
+
+8.If you are given suppose two integers or string try to see if you can use 2 pointers in any way to 
+iterate over those two array in m+n way
+
+9.Supoose in every iteration you wnat to have the minimium or maximum value 
+you can use heap datastructure . If you wnt to find the minimum elemt without sorting the Array
+
+------------------
+Count Sort ( O(max_value) time complexity )
+Usually the normal sorting takes O(nlogn) time complexity
+When to use count sort:-
+1. Counting sort is most efficient when the maxium value in an array (range of the input values ) 
+is less than the number of elements (length of the array). 
+If  maxium value in an array  is large compared to length of the array, 
+the space complexity will increase, making counting sort less efficient.
+
+2. If the values are uniformly distributed within the range, counting sort can be very efficient. 
+It works well when you have many repeated values.
+
+        int count[] = new int[max_value+1];
+        for(int num: people){
+            count[num]+=1;
+        }
+        int j=0;
+        for(int value=0 ;value <= max_value ; value++){
+            while(count[value] >0){
+                people[j++]=value;
+                count[value]-=1;
+            }
+        }
+-------------
+-------------
+Thoda keep in mind if two pointer, sliding window, prefix sum, splitting the array into frequency array 
+etc is not working
+Also try swapping reversing
+try using stack and queue
+
+---------------- -------
+General Approach to solve sliding window or dynmic sliding window
+Follow this pattern everywhere
+while(j goes till end of the array){
+    Some calculation for j;
+
+    if(condition is violated){
+        move i till condition is no more violated
+    }
+
+    if(condition is met){
+        remove ans for eg :- max, min, count etc
+    }
+
+    j++;
+}
+
+-------
+You can never apply sliding window/ two pointers alone
+if lets say you do not know incresaesing  your j will eighter increase or decrease your sum 
+(this can happen because of negative numbers)
+ 
+-----------------------
+Prefix Sum
+If you see something reagding sumarray and sum 
+always think of prefix sum
+-------------------
+Subsequnce of an array:-
+A subsequence of an array is a sequence that can be derived from the array 
+by deleting some or no elements without changing the order of the remaining elements. 
+This means that the elements of the subsequence appear in the same relative order as they do 
+in the original array, but not necessarily consecutively.
+
+Key Points:
+Order is preserved: The relative order of the elements in the subsequence is the same as in the original array.
+Deletion is allowed: You can remove zero, some, or all elements from the original array to form a subsequence.
+Examples:
+Given the array nums = [2, 3, 4]:
+
+Possible subsequences:
+[2], [3], [4] (single-element subsequences)
+[2, 3], [2, 4], [3, 4] (two-element subsequences)
+[2, 3, 4] (the array itself as a subsequence)
+-------------------
+If you have n objects and each object can have m choices then , the total number of 
+possibleliteoes is m^n
+----------------------
+Frequncy array thinking
+
+1.Always remeber that the index becomes your actual elemts in the array and the value stored at that 
+index becomes the frequncy`
+2.If there is no 0 value in the array, you can make the array as 1 indexed and the can place the 
+most higest elemet at the end
+for eg if you knwo that your array will contain 1 to 8 and you have an array of length 8, last index
+will be 7 , but as you know there is no 0 in the array you can use this index 7 to represent 8
+
+--------------------
+if n/bigN will always give 0
+2/3 ==0 (division returns quotient)
+4/8==0  
+
+Consider the FindDuplicatesInAnArray solution
+
+formula = (original number + k *n)n
+ original number /n ==0 //as original number is smaller
+ k*n / n == k (which is frequency)
+
+ why k*n because supoose if 2 is repeated 3 times, 3 times it will come to index 2 and will add n
+ SO K*N
+
+---------------------
+Comparator
+The main method in the Comparator interface is:
+
+compare(T o1, T o2): It compares two objects o1 and o2 and returns:
+A negative integer if o1 is less than o2
+Zero if o1 is equal to o2
+A positive integer if o1 is greater than o2
+
+----------------------
+So yeah, O(1) < O(logn) < O(n) < O(nlogn) holds true.
+
+An easy way to remember might be, taking two examples
+
+Imagine the binary search algorithm with is Log N time complexity: O(log(N))
+If, for each step of binary search, you had to iterate the array of N elements
+The time complexity of that task would be O(N*log(N))
+Which is more work than iterating the array once: O(N)
+
+In array try to find if there is some relation between first and last
+-----------------------
+Finding subarrays:-
+
+Suppose you are given an array and you are told to find all the subarrays:-
+Brute Force time complexity will be O(n^2)
+Because :-
+Pahila i fix at 0, move j till end, we get all subrarrays where start is 0
+i fix at 1, move j till end, we get all subarrays where start is 1 ...and so on
+
+If you are told to find their sum (sum of each subarrays)
+Brute Force:-  Time complexity will be O(n^3) :- One more iteration to sum elemts from i to j;
+Slightly better :- O(n^2)
+We will keep adding j to the sum
+For eg:-
+i is at 0, j is at 1 (add number at 1 to number at 0) -- we get one subarray sum
+i is at 0, j is at 2 (add number at 2 to sum of array of elemets at 0 and 1)...and so on
+------------------
+Prefix Sum:-
+Use prefix sum algorithm to find sum between a range in an array
+For this first build the prefix sum array
+-------------
+Finding subarrays trick:-
+Supoose you are at index j and you want to find subarrays having j as last index
+formuala is 
+number of subarrays having j as last index= j-i + 1
+-------------------
+Used in 930 leetcode question:- 
+
+Number of subarrays which can be formed between i and j (which will contain index j for sure at last) = j-i+1
+eg :- [3,4,5,6]
+j=3 , i =0 == 4 (4 subarrays having j for sure)
+
+Finding subarray sum in an array having positive numbers and 0 
+
+So in general the intuation is that, supoose we have an array containing only postive numbers and 0
+Then we can take 2 pointers i and j
+if you move j  (or expand the window) (keeping i fixed):- 
+eighter sum can remain same (as we have 0) or sum can increase
+if you move i (or shrink the window) (keepin j fixed):-
+eighter sum will remain same (as we have 0 ) oe sum will decrease
+
+Supoose you are given an array and you are told to find subarrays having sum as goal
+You can interpret this as:-
+
+No of subarrays having (sum == goal) 
+    = No of subarrays having (sum <= goal) - No of subarrays having (sum < goal) 
+or 
+No of subarrays having (sum == goal) 
+    = No of subarrays having (sum <= goal) - No of subarrays having (sum <= goal-1) 
+------------------------
+---------------------
+
+
+Remove element at index 2:
+Use the remove(int index) method. This method removes the element at the specified index.
+
+java
+Copy code
+ArrayList<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+list.remove(2); // Removes element at index 2, which is '3'
+System.out.println(list); // Output: [1, 2, 4, 5]
+Remove element with value 2:
+Use the remove(Object o) method. This method removes the first occurrence of the specified element (by value).
+
+java
+Copy code
+ArrayList<Integer> list = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
+list.remove(Integer.valueOf(2)); // Removes the element '2'
+System.out.println(list); // Output: [1, 3, 4, 5]
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,82 @@
+Mostly dont try to modfy the argument variables in the function code
+Try to modify it in the recursive function call , follow example in the topArrayInterview/KnapSackRecursive
+
+Argument variables serve as the input state for each recursion level. 
+Modifying them directly can cause unintended side effects and make debugging harder.
+By keeping the arguments immutable within the function body, each recursion level 
+starts with the correct state.
+
+Recursive algorithms often require backtracking. If argument variables are directly modified, 
+backtracking logic becomes tricky, as you'd need to reset the state manually.
+Instead, by modifying the values in the recursive calls, the recursion stack inherently manages the 
+state for you.
+
+---------------------------
+Always keep in mind what you are doing with argments passed in the recursive called
+Carefully modify them
+Then for smallest val;id input what can eb the output
+---------------------
+Base case  : LAST VALID INPUT
+-------------
+To identufy a recursion problem:-
+ 1.You will always be given some choices
+ 2.You have to take decisions
+ 3. You must be given to find the optimal way (largest, smallest,max min etc)
+In recursion what happens is , you have choices then after you make a choice or take a decsion 
+your input reduces
+----------------------
+** Always keep in mind that in recursion function parameter values of the function keeps on interchanging
+Some thinking methods to solve recursion
+1. HIB
+H== hypothesis (ithe you ask qustions to your recursion function, what it should return ?,
+                you also try to generalize it with smaller inputs
+                kaarna kyaa haai function ko ? you ask it here)
+                Ithe mostly what you do is 
+                    :- try top create a function of n
+                    :- try to create a function for n-1
+                    then try to bui;d logic or psuedo code in induyction 
+B== base case (normal base case where your fucntion should return , or last valid input, 
+                first  invalid input etc)
+                Here always think about smallest valid input
+I== Induction (here you write psuedo code etc)
+
+2. Recusion tree
+Use input-output method 
+you assume an output and you take the input , then you start drawing your tree
+the branches of the tree represent choices and the branch which you choose to go on represent your
+decison 
+-----------------------
+To solve recurssion problem , first think can we take any decision choice , if so then use Recursion tree
+method , if not use HIB
+---------
+Maybe just a thought try to think of second last base case and basecase
+-----------------
+In memoizsatoion for the dp array, always create the array or matrix length accprding to the 
+changing parametrs
+-----------
+Tabulationn
+2. We create a matrix or a dp array, some row column combination 
+(in a matrix) or just a box in simple array, and that blocks will give you the answer
+But for certain blocks we already know the answer, like it will always be the same. So in this
+blocks we can set the answer directly, this is called initilaization. For eg in knapsack
+we for sure know that if the remaining weight of the knapsack is 0, or there are no items left
+then for sure the answer is going to be zero no matter what
+0. In tabulation approach, the base condition in recursion is changed to initilaization
+(aditya verma style), 
+1. in tabulation of without memoizsatoion approach, what we do is we TRY TO REMOVE RECURSSIVE CALLS
+
+--------------------------------------------------
+Remeber this technique (How we have used max to get the minimum if the recusion returned 0)
+public int minDepthAnother(TreeNode root) {
+        if(root==null){
+            return 0;
+        }
+       
+        int leftHeight=minDepth(root.left);
+        int rightHeight=minDepth(root.right);
+        if(leftHeight!=0 && rightHeight!=0){
+            return 1+Math.min(leftHeight,rightHeight); 
+        }
+        return 1+Math.max(leftHeight,rightHeight);
+    }
+-------------------

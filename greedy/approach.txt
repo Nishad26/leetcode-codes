@@ -1,0 +1,4 @@
+----------------------------------
+If you are given suppose two integers or string try to see if you can use 2 pointers in any way to 
+iterate over those two array in m+n way
+----------------------------------- 

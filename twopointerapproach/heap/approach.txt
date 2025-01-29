@@ -1,0 +1,40 @@
+In heap problems some K we will have to find
+And there will be smallest or largest 
+if smallest we have to find create max-heap 
+if largest we have to find create min-heap
+-------------------------------------------
+Heap in java
+Min Heap :
+PriorityQueue<Integer> pq = new PriorityQueue<>();
+Max Heap :
+PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> b - a);
+PriorityQueue<Integer> pQueue = new PriorityQueue<Integer>(Collections.reverseOrder());
+----------------
+Supoose in every iteration you wnat to have JUST the minimium or maximum value 
+you can use heap datastructure
+-
+-----------------------------------------------
+size == length of array
+In a zero based indexing max/min heap
+For a heap stored in a zero-indexed array:
+The root is at index 0.
+For any node at index i, its:
+Left child is at index 2 * i + 1.
+Right child is at index 2 * i + 2.
+parent is at index (i - 1) / 2;
+
+To check if it is a leaf node:-
+i >= (size / 2) && i < size;
+Why the Formula Works:
+Leaf Nodes Start After Half of the Array:
+
+The leaf nodes are always in the second half of the array. If the total number of elements in 
+the heap is size, the non-leaf nodes are in the first half, which includes indices from 0 to (size / 2) - 1.
+The leaf nodes start from index size / 2 and continue until the end of the array (inde size - 1).
+Formula Breakdown:
+
+index >= (size / 2): This condition checks if the node is in the second half of the array. 
+Any node from size / 2 onwards is a leaf because there are no children for those nodes in a 
+complete binary tree.
+index < size: This ensures the index is within the bounds of the array (i.e., it's a valid node in the heap).
+----------------------------------------
